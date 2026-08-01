@@ -1,0 +1,16 @@
+id: fastapi-sqlalchemy-mysql-api
+name: FastAPI + SQLAlchemy + MySQL API 模板
+description: 面向独立 MySQL API 服务起步的业务无关同步 FastAPI 模板。
+tags:
+  - api
+  - python
+  - fastapi
+  - sqlalchemy
+  - alembic
+  - mysql
+commands:
+  install: uv sync --locked
+  dev: uv run --locked uvicorn app.main:app --reload
+  check: uv run --locked ruff check . && uv run --locked ruff format --check .
+  test: uv run --locked pytest
+  build: uv build
