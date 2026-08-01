@@ -1,9 +1,13 @@
 # FastAPI + SQLAlchemy + MySQL 模板协作规则
 
+## 工作模式
+
+- **模板维护模式**：当前目录仍属于 PCM 模板仓库时，保持模板业务中立，不加入用户、权限、订单、Todo 等业务模型、路由、数据或流程。
+- **派生项目开发模式**：模板复制到独立项目后，可根据用户已确认的需求实现业务；仍不预建未确认的业务、依赖、基础设施或空架构层。
+
 ## 阅读与边界
 
 - 修改前阅读 `README.md`、`pyproject.toml`、直接相关源码、`alembic/env.py` 和测试。
-- 保持模板业务中立，不加入用户、权限、订单、Todo 等业务模型、路由、数据或流程。
 - 使用 `app/api.py` 聚合业务 router，并由 `API_PREFIX` 统一挂载；不得在业务路径中硬编码 `/api/v1`，也不创建 `api/v1`、service、repository、unit-of-work 或其他尚无真实职责的抽象。
 - `core/` 只放配置、数据库、响应、错误、日志和 middleware；`main.py` 只创建应用、注册基础设施并挂载 router。没有真实业务职责时，不创建 models、schemas、services、repositories 或 routers 目录。
 - 模板必须在目录被单独复制后仍可独立安装、运行、测试和构建。
