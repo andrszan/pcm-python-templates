@@ -12,9 +12,9 @@
 
 ## 模板目录
 
-当前尚未添加任何 Python 模板。
+- [FastAPI + SQLAlchemy + MySQL API](templates/fastapi-sqlalchemy-mysql-api/README.md)：面向独立 MySQL API 服务起步的业务无关同步 FastAPI 模板。
 
-完成具体架构讨论和实现后，模板存放在：
+具体模板存放在：
 
 ```text
 templates/<template-id>/
