@@ -33,4 +33,5 @@ class Settings(BaseSettings):
         )
 
 
-settings = Settings()
+# db_* 等必填项由环境变量 / .env 注入；IDE 会误报构造参数未填写。
+settings = Settings()  # type: ignore[call-arg]
