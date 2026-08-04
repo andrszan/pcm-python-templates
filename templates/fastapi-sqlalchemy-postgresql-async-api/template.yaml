@@ -1,0 +1,17 @@
+id: fastapi-sqlalchemy-postgresql-async-api
+name: FastAPI + SQLAlchemy + PostgreSQL Async API 模板
+description: 面向异步 PostgreSQL API 服务起步的业务无关 FastAPI 模板。
+tags:
+  - api
+  - python
+  - fastapi
+  - sqlalchemy
+  - alembic
+  - postgresql
+  - async
+commands:
+  install: uv sync --locked
+  dev: uv run --locked uvicorn app.main:app --reload --no-access-log
+  check: uv run --locked ruff check . && uv run --locked ruff format --check .
+  test: uv run --locked pytest
+  build: uv build
