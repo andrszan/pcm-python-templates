@@ -1,20 +1,16 @@
-# FastAPI + SQLAlchemy + MySQL 模板协作规则
-
-## 工作模式
-
-- **模板维护模式**：当前目录仍属于 PCM 模板仓库时，保持模板业务中立，不加入用户、权限、订单、Todo 等业务模型、路由、数据或流程。
-- **派生项目开发模式**：模板复制到独立项目后，可根据用户已确认的需求实现业务；仍不预建未确认的业务、依赖、基础设施或空架构层。
+# FastAPI + SQLAlchemy + MySQL 项目开发规则
 
 ## 阅读与边界
 
 - 修改前阅读 `README.md`、`pyproject.toml`、直接相关源码、`alembic/env.py` 和测试。
+- 除非需求明确，不新增未确认的业务模型、路由、数据、流程、依赖、基础设施或空架构层。
 - 使用 `app/api.py` 聚合业务 router，并由 `API_PREFIX` 统一挂载；不得在业务路径中硬编码 `/api/v1`，也不创建 `api/v1`、service、repository、unit-of-work 或其他尚无真实职责的抽象。
 - `core/` 只放配置、数据库、响应、错误、日志和 middleware；`main.py` 只创建应用、注册基础设施并挂载 router。没有真实业务职责时，不创建 models、schemas、services、repositories 或 routers 目录。
-- 模板必须在目录被单独复制后仍可独立安装、运行、测试和构建。
+- 项目必须能够独立安装、运行、测试和构建。
 
 ## 数据库与配置
 
-- 模板只支持 MySQL，保持同步 SQLAlchemy 2.x 和 PyMySQL；不得加入其他数据库兼容分支或仅因偏好改为异步数据库栈。
+- 项目只支持 MySQL，保持同步 SQLAlchemy 2.x 和 PyMySQL；不得加入其他数据库兼容分支或仅因偏好改为异步数据库栈。
 - Schema 变更只通过 Alembic 管理，不使用 `Base.metadata.create_all()`，也不在应用启动时自动迁移。
 - 生成 migration 后必须人工审查；新增模型时确保 Alembic 能导入对应 metadata。
 - `/health` 是纯 liveness，不创建 Session、不执行 SQL，也不承担 readiness；`/ready` 只做最低限度的数据库连通性检查，不执行迁移、建表或业务查询。
@@ -26,7 +22,7 @@
 
 ## 模糊需求处理
 
-- 能从项目文档、上下文和模板契约可靠推断时，采用满足目标的最简单业务中立方案；不要机械追问低影响工程细节。
+- 能从项目文档和上下文可靠推断时，采用满足目标的最简单方案；不要机械追问低影响工程细节。
 - 新业务接口使用 `APIRouter`、tags、summary、Pydantic 请求/响应 schema 和 `ApiResponse[T]`；修改后验证 OpenAPI Schema 与 docs。
 - 列表分页必须显式稳定排序，`total` 表示同一筛选条件后的总数；页码越界默认返回空列表，不预建 cursor、CRUD 基类或查询 DSL。
 - 新增模型必须使用现有 `Base`，每次 Schema 变化都生成并人工审查 Alembic revision；写操作显式 `commit()`，预期数据库失败后先 `rollback()`。

@@ -1,6 +1,6 @@
 id: fastapi-sqlalchemy-mysql-api
-name: FastAPI + SQLAlchemy + MySQL API 模板
-description: 面向独立 MySQL API 服务起步的业务无关同步 FastAPI 模板。
+name: FastAPI + SQLAlchemy + MySQL API 项目起点
+description: 面向独立 MySQL API 服务起步的业务无关同步 FastAPI 项目起点。
 tags:
   - api
   - python

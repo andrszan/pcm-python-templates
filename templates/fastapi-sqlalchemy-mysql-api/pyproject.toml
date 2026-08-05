@@ -1,7 +1,7 @@
 [project]
 name = "fastapi-sqlalchemy-mysql-api"
 version = "0.1.0"
-description = "业务无关的 FastAPI、同步 SQLAlchemy 与 MySQL API 模板。"
+description = "业务无关的 FastAPI、同步 SQLAlchemy 与 MySQL API 项目起点。"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

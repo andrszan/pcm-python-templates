@@ -1,8 +1,8 @@
-# FastAPI + SQLAlchemy + MySQL API 模板
+# FastAPI + SQLAlchemy + MySQL API 项目
 
-业务无关的同步 MySQL API 基础模板，提供 FastAPI、SQLAlchemy 2.x、Alembic、Pydantic v2、pytest 和 Ruff 的最小可运行配置，以及响应、错误、探针与请求日志约定。
+业务无关的同步 MySQL API 基础项目，提供 FastAPI、SQLAlchemy 2.x、Alembic、Pydantic v2、pytest 和 Ruff 的最小可运行配置，以及响应、错误、探针与请求日志约定。
 
-模板只支持 MySQL，只包含基础设施，不包含业务模型、认证、任务队列、缓存、WebSocket、Docker 或 CI。
+项目只支持 MySQL，只包含基础设施，不包含业务模型、认证、任务队列、缓存、WebSocket、Docker 或 CI。
 
 ## 环境要求
 
@@ -19,7 +19,7 @@ uv sync --locked
 cp .env.example .env
 ```
 
-编辑 `.env`，填写一个**已经存在**的 MySQL database 及其可登录用户。首次使用模板、且 `DB_NAME` 指向的新 database 尚不存在时，需要先创建这个数据库：
+编辑 `.env`，填写一个**已经存在**的 MySQL database 及其可登录用户。首次配置项目、且 `DB_NAME` 指向的新 database 尚不存在时，需要先创建这个数据库：
 
 ```bash
 # 命令创建数据库示例
@@ -77,7 +77,7 @@ src/app/
 └── main.py     # 应用装配
 ```
 
-HTTPException 的 `detail` 仅能填写已经审查、可公开的字符串；dict、list、异常对象或原始第三方响应不会被回显。项目文档未明确时，agent 应直接采用模板的业务中立工程默认；涉及公开 API、数据模型、认证/权限、迁移或部署边界的实质歧义，必须先确认，不能以示例业务或空架构层代替决策。开始业务开发或需要增强基础能力时，参见[项目按需扩展指南](docs/项目按需扩展指南.md)。
+HTTPException 的 `detail` 仅能填写已经审查、可公开的字符串；dict、list、异常对象或原始第三方响应不会被回显。项目文档未明确时，agent 应直接采用当前业务中立工程默认；涉及公开 API、数据模型、认证/权限、迁移或部署边界的实质歧义，必须先确认，不能以示例业务或空架构层代替决策。开始业务开发或需要增强基础能力时，参见[项目按需扩展指南](docs/项目按需扩展指南.md)。
 
 - `uv sync --locked`：严格按 `uv.lock` 创建或同步项目 `.venv`；依赖声明与锁文件不一致时失败。
 - `cp .env.example .env`：创建只属于当前机器的配置文件，随后填写已有 MySQL database 的连接参数。
@@ -85,7 +85,7 @@ HTTPException 的 `detail` 仅能填写已经审查、可公开的字符串；di
 - `uv run --locked uvicorn app.main:app --reload`：在项目虚拟环境启动开发服务，并在源码修改时自动重载。
 - `curl http://127.0.0.1:8000/health`：只验证 HTTP health 响应。
 
-当前模板不包含业务模型和 migration revision，因此 `alembic upgrade head` 只验证 Alembic 配置与数据库连接。
+当前项目不包含业务模型和 migration revision，因此 `alembic upgrade head` 只验证 Alembic 配置与数据库连接。
 
 ## 数据库配置
 
@@ -109,7 +109,7 @@ CORS_ORIGINS=[]
 
 `CORS_ORIGINS` 必须是 JSON 字符串数组，例如 `CORS_ORIGINS=["http://localhost:3000","https://example.com"]`。默认空列表不开放跨域，且始终关闭 credentials。
 
-模板通过 SQLAlchemy `URL.create()` 构造 `mysql+pymysql` URL，并固定客户端字符集为 `utf8mb4`。不要把真实凭据提交到仓库。
+项目通过 SQLAlchemy `URL.create()` 构造 `mysql+pymysql` URL，并固定客户端字符集为 `utf8mb4`。不要把真实凭据提交到仓库。
 
 业务端点通过 `get_db` 获得请求级同步 Session；它只在请求结束后关闭 Session，不会自动提交。端点或用例必须显式决定 `commit()` 与 `rollback()`。
 
@@ -175,4 +175,4 @@ uv run --locked pytest
 uv run --locked uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-进程编排、反向代理、容器和多环境部署应按实际运行平台补充，不属于本模板默认能力。应用使用或生成 `X-Request-ID` 并在响应中回传；访问日志只记录请求 ID、方法、路径、状态与耗时，不记录 query string、body、Authorization、Cookie、数据库 URL 或凭据。
+进程编排、反向代理、容器和多环境部署应按实际运行平台补充，不属于本项目默认能力。应用使用或生成 `X-Request-ID` 并在响应中回传；访问日志只记录请求 ID、方法、路径、状态与耗时，不记录 query string、body、Authorization、Cookie、数据库 URL 或凭据。
