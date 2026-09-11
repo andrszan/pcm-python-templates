@@ -77,7 +77,7 @@ src/app/
 └── main.py     # 应用装配
 ```
 
-HTTPException 的 `detail` 仅能填写已经审查、可公开的字符串；dict、list、异常对象或原始第三方响应不会被回显。项目文档未明确时，agent 应直接采用当前业务中立工程默认；涉及公开 API、数据模型、认证/权限、迁移或部署边界的实质歧义，必须先确认，不能以示例业务或空架构层代替决策。开始业务开发或需要增强基础能力时，参见[项目按需扩展指南](docs/项目按需扩展指南.md)。
+开发约束与按任务阅读入口见 [AGENTS.md](AGENTS.md)；API、数据库和基础设施的详细规范分别位于 `.claude/rules/`，其 Markdown 正文供所有 Agent 与维护者阅读。
 
 - `uv sync --locked`：严格按 `uv.lock` 创建或同步项目 `.venv`；依赖声明与锁文件不一致时失败。
 - `cp .env.example .env`：创建只属于当前机器的配置文件，随后填写已有 PostgreSQL database 的连接参数。
